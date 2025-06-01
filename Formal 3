@@ -1,0 +1,61 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+
+void fileread(char *& ss, char *& cs)
+{
+    ifstream stu("students.txt");
+    ifstream cour("courses.txt");
+    char * word = new char[30]{'\0'};
+    ss = new char[30]{'\0'};
+    cs = new char[100]{'\0'};
+    int * words = new int (0);
+    int * temp = new int (0);
+    int * len = new int (0);
+    char * comma = new char(',');
+    while(stu >> word)
+    {
+        stu >> comma;
+        if((*words) == 5 + 4 * (*temp))
+        {
+            for(int j = 0; word[j] != '\0'; j++)
+            {
+                ss[(*len)++] = word[j];
+            }
+            ss[(*len)++] = ' ';
+            (*temp)++;
+        }
+        (*words)++;
+    }
+    
+    stu.close();
+    
+    (*words) = 0;
+    (*temp) = 0;
+    (*len) = 0;
+    
+    while(cour >> word)
+    {
+        cour >> comma;
+        if((*words) == 11 + 6 * (*temp))
+        {
+            for(int j = 0; word[j] != '\0'; j++)
+            {
+                cs[(*len)++] = word[j];
+            }
+            cs[(*len)++] = ' ';
+            (*temp)++;
+        }
+        (*words)++;
+    }
+}
+
+int main()
+{
+    char * ss = nullptr;
+    char * cs = nullptr;
+    fileread(ss, cs);
+    cout << ss << endl << cs << endl;
+    return 0;
+}
